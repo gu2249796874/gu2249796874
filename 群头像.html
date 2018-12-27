@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset='utf-8'/>
+    <meta name='viewport' content='width=device-width,initial-scale=1.0'/>
+    <title></title>
+</head>
+<body>
+
+    <style>
+        html,
+        body{height:100%;  background:#333;  margin:0;  }
+        .box{transform-style:preserve-3d;  height:100%;  width:100%;  perspective:1000px;  overflow:hidden;  }
+        .keyboard{transform-style:preserve-3d;  height:100%;  width:100%;  transform-origin:center center;  animation:ani linear 5s infinite forwards;  }
+        .key{transform-style:preserve-3d;  position:absolute;  width:150px;  height:80px;  font:700 40px/80px "微软雅黑";  text-align:center;  background:#fff;  border-radius:15px;  }
+        .key>div{position:absolute;  height:100%;  width:100%;  border-radius:15px;  }
+
+        @keyframes ani{
+            0%{transform:translate3d(100px,100px,-100px) rotateX(0deg) rotateY(-20deg)  rotateZ(10deg);  }
+            100%{transform:translate3d(100px,100px,100px) rotateX(360deg) rotateY(-20deg)  rotateZ(10deg);  }
+            50%{transform:translate3d(100px,100px,0) rotateX(180deg) rotateY(-20deg)  rotateZ(-10deg);  }
+        }
+    </style>
+
+
+    <div class='box'>
+        <div class='keyboard'>
+            <div class='key'>java</div>
+            <div class='key'>linux</div>
+            <div class='key'>python</div>
+            <div class='key'>.net</div>
+            <div class='key'>xml</div>
+            <div class='key'>html</div>
+            <div class='key'>php</div>
+        </div>
+    </div>
+
+    <script>
+
+        document.querySelectorAll('.key').forEach(function(el,index){
+            el.style.left=170*(index%3)+'px'
+            el.style.top=100*parseInt(index/3)+'px'
+
+            el.innerHTML += getKeyHTML()
+        })
+
+        function getKeyHTML(){
+            var html=''
+            for(var i=0;i<50;i++){
+                html+= `<div style='top:0;   left:0;  background:${ getColor(i,200,60) };  transform:translateZ(-${ i+1 }px) scale(${ (100+(i*0.2))/100 });  '>html</div>`
+            }
+
+            return html
+        }
+
+        function getColor(i,max,min){
+            var colorNumber=max-(max-min)*i/50
+            return `rgb(${colorNumber},${colorNumber},${colorNumber})`
+        }
+    </script>
+</body>
+</html>
